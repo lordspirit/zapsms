@@ -17,11 +17,8 @@ class UpdateProductTagRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'   => [
+            'name' => [
                 'string',
-                'required',
-            ],
-            'active' => [
                 'required',
             ],
         ];

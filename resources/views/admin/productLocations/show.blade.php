@@ -39,14 +39,6 @@
                             {{ $productLocation->description }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.productLocation.fields.location') }}
-                        </th>
-                        <td>
-                            {{ $productLocation->location->name ?? '' }}
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -58,22 +50,6 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#location_product_locations" role="tab" data-toggle="tab">
-                {{ trans('cruds.productLocation.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="location_product_locations">
-            @includeIf('admin.productLocations.relationships.locationProductLocations', ['productLocations' => $productLocation->locationProductLocations])
-        </div>
-    </div>
-</div>
+
 
 @endsection

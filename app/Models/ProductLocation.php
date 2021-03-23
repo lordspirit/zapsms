@@ -23,7 +23,6 @@ class ProductLocation extends Model
     protected $fillable = [
         'name',
         'description',
-        'location_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -32,15 +31,5 @@ class ProductLocation extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
-    }
-
-    public function locationProductLocations()
-    {
-        return $this->hasMany(ProductLocation::class, 'location_id', 'id');
-    }
-
-    public function location()
-    {
-        return $this->belongsTo(ProductLocation::class, 'location_id');
     }
 }

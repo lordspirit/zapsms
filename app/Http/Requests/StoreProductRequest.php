@@ -17,43 +17,32 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'         => [
+            'name'          => [
                 'string',
                 'required',
             ],
-            'categories.*' => [
+            'tags.*'        => [
                 'integer',
             ],
-            'categories'   => [
+            'tags'          => [
+                'array',
+            ],
+            'category_id'   => [
                 'required',
-                'array',
-            ],
-            'locations.*'  => [
                 'integer',
             ],
-            'locations'    => [
-                'required',
-                'array',
+            'serial_number' => [
+                'string',
+                'nullable',
             ],
-            'tags.*'       => [
-                'integer',
-            ],
-            'tags'         => [
-                'array',
-            ],
-            'quantity'     => [
+            'quantity'      => [
                 'numeric',
-            ],
-            'ipaddress'    => [
-                'string',
-                'nullable',
-            ],
-            'serialnumber' => [
-                'string',
-                'nullable',
-            ],
-            'status'       => [
                 'required',
+                'min:1',
+            ],
+            'location_id'   => [
+                'required',
+                'integer',
             ],
         ];
     }

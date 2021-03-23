@@ -19,7 +19,7 @@ class ProductLocationController extends Controller
         abort_if(Gate::denies('product_location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = ProductLocation::with(['location'])->select(sprintf('%s.*', (new ProductLocation)->table));
+            $query = ProductLocation::query()->select(sprintf('%s.*', (new ProductLocation)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -49,27 +49,20 @@ class ProductLocationController extends Controller
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : "";
             });
-            $table->addColumn('location_name', function ($row) {
-                return $row->location ? $row->location->name : '';
-            });
 
-            $table->rawColumns(['actions', 'placeholder', 'location']);
+            $table->rawColumns(['actions', 'placeholder']);
 
             return $table->make(true);
         }
 
-        $product_locations = ProductLocation::get();
-
-        return view('admin.productLocations.index', compact('product_locations'));
+        return view('admin.productLocations.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('product_location_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $locations = ProductLocation::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.productLocations.create', compact('locations'));
+        return view('admin.productLocations.create');
     }
 
     public function store(StoreProductLocationRequest $request)
@@ -83,11 +76,7 @@ class ProductLocationController extends Controller
     {
         abort_if(Gate::denies('product_location_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $locations = ProductLocation::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $productLocation->load('location');
-
-        return view('admin.productLocations.edit', compact('locations', 'productLocation'));
+        return view('admin.productLocations.edit', compact('productLocation'));
     }
 
     public function update(UpdateProductLocationRequest $request, ProductLocation $productLocation)
@@ -100,8 +89,6 @@ class ProductLocationController extends Controller
     public function show(ProductLocation $productLocation)
     {
         abort_if(Gate::denies('product_location_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $productLocation->load('location', 'locationProductLocations');
 
         return view('admin.productLocations.show', compact('productLocation'));
     }
