@@ -31,9 +31,6 @@
                         {{ trans('cruds.productLocation.fields.description') }}
                     </th>
                     <th>
-                        {{ trans('cruds.productLocation.fields.location') }}
-                    </th>
-                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -48,14 +45,6 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($product_locations as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
                     </td>
                     <td>
                     </td>
@@ -115,7 +104,6 @@
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
 { data: 'description', name: 'description' },
-{ data: 'location_name', name: 'location.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

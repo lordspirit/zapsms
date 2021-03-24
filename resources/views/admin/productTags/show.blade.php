@@ -31,14 +31,6 @@
                             {{ $productTag->name }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.productTag.fields.active') }}
-                        </th>
-                        <td>
-                            <input type="checkbox" disabled="disabled" {{ $productTag->active ? 'checked' : '' }}>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

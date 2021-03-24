@@ -68,7 +68,7 @@
             </li>
         @endcan
         @can('product_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/products*") ? "c-show" : "" }} {{ request()->is("admin/product-categories*") ? "c-show" : "" }} {{ request()->is("admin/product-locations*") ? "c-show" : "" }} {{ request()->is("admin/product-brands*") ? "c-show" : "" }} {{ request()->is("admin/product-suppliers*") ? "c-show" : "" }} {{ request()->is("admin/product-tags*") ? "c-show" : "" }} {{ request()->is("admin/quantity-units*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/products*") ? "c-show" : "" }} {{ request()->is("admin/product-categories*") ? "c-show" : "" }} {{ request()->is("admin/sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/product-tags*") ? "c-show" : "" }} {{ request()->is("admin/countries*") ? "c-show" : "" }} {{ request()->is("admin/locations*") ? "c-show" : "" }} {{ request()->is("admin/sublocations*") ? "c-show" : "" }} {{ request()->is("admin/suppliers*") ? "c-show" : "" }} {{ request()->is("admin/brands*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-shopping-cart c-sidebar-nav-icon">
 
@@ -89,40 +89,20 @@
                     @can('product_category_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.product-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/product-categories") || request()->is("admin/product-categories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-bezier-curve c-sidebar-nav-icon">
+                                <i class="fa-fw fas fa-barcode c-sidebar-nav-icon">
 
                                 </i>
                                 {{ trans('cruds.productCategory.title') }}
                             </a>
                         </li>
                     @endcan
-                    @can('product_location_access')
+                    @can('sub_category_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.product-locations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/product-locations") || request()->is("admin/product-locations/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-location-arrow c-sidebar-nav-icon">
+                            <a href="{{ route("admin.sub-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sub-categories") || request()->is("admin/sub-categories/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-barcode c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.productLocation.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('product_brand_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.product-brands.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/product-brands") || request()->is("admin/product-brands/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-feather-alt c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.productBrand.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('product_supplier_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.product-suppliers.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/product-suppliers") || request()->is("admin/product-suppliers/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-concierge-bell c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.productSupplier.title') }}
+                                {{ trans('cruds.subCategory.title') }}
                             </a>
                         </li>
                     @endcan
@@ -136,13 +116,105 @@
                             </a>
                         </li>
                     @endcan
-                    @can('quantity_unit_access')
+                    @can('country_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.quantity-units.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/quantity-units") || request()->is("admin/quantity-units/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fab fa-uniregistry c-sidebar-nav-icon">
+                            <a href="{{ route("admin.countries.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/countries") || request()->is("admin/countries/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-flag c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.quantityUnit.title') }}
+                                {{ trans('cruds.country.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('location_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.locations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/locations") || request()->is("admin/locations/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-compass c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.location.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('sublocation_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.sublocations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sublocations") || request()->is("admin/sublocations/*") ? "c-active" : "" }}">
+                                <i class="fa-fw far fa-compass c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.sublocation.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('supplier_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.suppliers.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/suppliers") || request()->is("admin/suppliers/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-parachute-box c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.supplier.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('brand_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.brands.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/brands") || request()->is("admin/brands/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-feather-alt c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.brand.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+        @can('task_management_access')
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/task-statuses*") ? "c-show" : "" }} {{ request()->is("admin/task-tags*") ? "c-show" : "" }} {{ request()->is("admin/tasks*") ? "c-show" : "" }} {{ request()->is("admin/tasks-calendars*") ? "c-show" : "" }}">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-list c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.taskManagement.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('task_status_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.task-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/task-statuses") || request()->is("admin/task-statuses/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.taskStatus.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('task_tag_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.task-tags.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/task-tags") || request()->is("admin/task-tags/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.taskTag.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('task_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.tasks.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tasks") || request()->is("admin/tasks/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.task.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('tasks_calendar_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.tasks-calendars.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/tasks-calendars") || request()->is("admin/tasks-calendars/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-calendar c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.tasksCalendar.title') }}
                             </a>
                         </li>
                     @endcan

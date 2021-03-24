@@ -36,27 +36,7 @@
                             {{ trans('cruds.product.fields.description') }}
                         </th>
                         <td>
-                            {{ $product->description }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.product.fields.category') }}
-                        </th>
-                        <td>
-                            @foreach($product->categories as $key => $category)
-                                <span class="label label-info">{{ $category->name }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.product.fields.location') }}
-                        </th>
-                        <td>
-                            @foreach($product->locations as $key => $location)
-                                <span class="label label-info">{{ $location->name }}</span>
-                            @endforeach
+                            {!! $product->description !!}
                         </td>
                     </tr>
                     <tr>
@@ -71,6 +51,30 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.product.fields.category') }}
+                        </th>
+                        <td>
+                            {{ $product->category->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.product.fields.sub_category') }}
+                        </th>
+                        <td>
+                            {{ $product->sub_category->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.product.fields.serial_number') }}
+                        </th>
+                        <td>
+                            {{ $product->serial_number }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.product.fields.quantity') }}
                         </th>
                         <td>
@@ -79,34 +83,34 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.units') }}
+                            {{ trans('cruds.product.fields.location') }}
                         </th>
                         <td>
-                            {{ $product->units->name ?? '' }}
+                            {{ $product->location->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.ipaddress') }}
+                            {{ trans('cruds.product.fields.sub_location') }}
                         </th>
                         <td>
-                            {{ $product->ipaddress }}
+                            {{ $product->sub_location->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.serialnumber') }}
+                            {{ trans('cruds.product.fields.brand') }}
                         </th>
                         <td>
-                            {{ $product->serialnumber }}
+                            {{ $product->brand->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.product.fields.status') }}
+                            {{ trans('cruds.product.fields.supplier') }}
                         </th>
                         <td>
-                            <input type="checkbox" disabled="disabled" {{ $product->status ? 'checked' : '' }}>
+                            {{ $product->supplier->name ?? '' }}
                         </td>
                     </tr>
                 </tbody>

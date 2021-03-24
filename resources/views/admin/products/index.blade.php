@@ -28,31 +28,31 @@
                         {{ trans('cruds.product.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.description') }}
+                        {{ trans('cruds.product.fields.tag') }}
                     </th>
                     <th>
                         {{ trans('cruds.product.fields.category') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.location') }}
+                        {{ trans('cruds.product.fields.sub_category') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.tag') }}
+                        {{ trans('cruds.product.fields.serial_number') }}
                     </th>
                     <th>
                         {{ trans('cruds.product.fields.quantity') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.units') }}
+                        {{ trans('cruds.product.fields.location') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.ipaddress') }}
+                        {{ trans('cruds.product.fields.sub_location') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.serialnumber') }}
+                        {{ trans('cruds.product.fields.brand') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.status') }}
+                        {{ trans('cruds.product.fields.supplier') }}
                     </th>
                     <th>
                         &nbsp;
@@ -68,7 +68,12 @@
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($product_tags as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -81,18 +86,13 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($product_locations as $key => $item)
+                            @foreach($sub_categories as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
                     <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($product_tags as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -100,18 +100,34 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($quantity_units as $key => $item)
+                            @foreach($locations as $key => $item)
                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($sublocations as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($brands as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($suppliers as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                     </td>
@@ -170,15 +186,15 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'description', name: 'description' },
-{ data: 'category', name: 'categories.name' },
-{ data: 'location', name: 'locations.name' },
 { data: 'tag', name: 'tags.name' },
+{ data: 'category_name', name: 'category.name' },
+{ data: 'sub_category_name', name: 'sub_category.name' },
+{ data: 'serial_number', name: 'serial_number' },
 { data: 'quantity', name: 'quantity' },
-{ data: 'units_name', name: 'units.name' },
-{ data: 'ipaddress', name: 'ipaddress' },
-{ data: 'serialnumber', name: 'serialnumber' },
-{ data: 'status', name: 'status' },
+{ data: 'location_name', name: 'location.name' },
+{ data: 'sub_location_name', name: 'sub_location.name' },
+{ data: 'brand_name', name: 'brand.name' },
+{ data: 'supplier_name', name: 'supplier.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

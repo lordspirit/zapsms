@@ -17,7 +17,7 @@ class ProductLocationApiController extends Controller
     {
         abort_if(Gate::denies('product_location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProductLocationResource(ProductLocation::with(['location'])->get());
+        return new ProductLocationResource(ProductLocation::all());
     }
 
     public function store(StoreProductLocationRequest $request)
@@ -33,7 +33,7 @@ class ProductLocationApiController extends Controller
     {
         abort_if(Gate::denies('product_location_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProductLocationResource($productLocation->load(['location']));
+        return new ProductLocationResource($productLocation);
     }
 
     public function update(UpdateProductLocationRequest $request, ProductLocation $productLocation)

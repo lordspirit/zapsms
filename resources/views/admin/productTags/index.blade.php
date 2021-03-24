@@ -28,9 +28,6 @@
                         {{ trans('cruds.productTag.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.productTag.fields.active') }}
-                    </th>
-                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -42,8 +39,6 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
                     </td>
                     <td>
                     </td>
@@ -102,7 +97,6 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'active', name: 'active' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

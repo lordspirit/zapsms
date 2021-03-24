@@ -28,15 +28,6 @@
                         {{ trans('cruds.productCategory.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.productCategory.fields.description') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.productCategory.fields.subcategory') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.productCategory.fields.active') }}
-                    </th>
-                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -48,19 +39,6 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($product_categories as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
                     </td>
                     <td>
                     </td>
@@ -119,9 +97,6 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'description', name: 'description' },
-{ data: 'subcategory_name', name: 'subcategory.name' },
-{ data: 'active', name: 'active' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

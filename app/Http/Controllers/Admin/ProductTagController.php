@@ -46,11 +46,8 @@ class ProductTagController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : "";
             });
-            $table->editColumn('active', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->active ? 'checked' : null) . '>';
-            });
 
-            $table->rawColumns(['actions', 'placeholder', 'active']);
+            $table->rawColumns(['actions', 'placeholder']);
 
             return $table->make(true);
         }

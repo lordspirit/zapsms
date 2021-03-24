@@ -22,7 +22,6 @@ class ProductTag extends Model
 
     protected $fillable = [
         'name',
-        'active',
         'created_at',
         'updated_at',
         'deleted_at',

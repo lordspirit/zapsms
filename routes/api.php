@@ -10,15 +10,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Users
     Route::apiResource('users', 'UsersApiController');
 
-    // Product Categories
-    Route::apiResource('product-categories', 'ProductCategoryApiController');
-
-    // Product Tags
-    Route::apiResource('product-tags', 'ProductTagApiController');
-
-    // Products
-    Route::apiResource('products', 'ProductApiController');
-
     // Product Locations
     Route::apiResource('product-locations', 'ProductLocationApiController');
 
@@ -30,4 +21,42 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Quantity Units
     Route::apiResource('quantity-units', 'QuantityUnitsApiController');
+
+    // Product Categories
+    Route::apiResource('product-categories', 'ProductCategoryApiController');
+
+    // Product Tags
+    Route::apiResource('product-tags', 'ProductTagApiController');
+
+    // Products
+    Route::post('products/media', 'ProductApiController@storeMedia')->name('products.storeMedia');
+    Route::apiResource('products', 'ProductApiController');
+
+    // Task Statuses
+    Route::apiResource('task-statuses', 'TaskStatusApiController');
+
+    // Task Tags
+    Route::apiResource('task-tags', 'TaskTagApiController');
+
+    // Tasks
+    Route::post('tasks/media', 'TaskApiController@storeMedia')->name('tasks.storeMedia');
+    Route::apiResource('tasks', 'TaskApiController');
+
+    // Sub Categories
+    Route::apiResource('sub-categories', 'SubCategoriesApiController');
+
+    // Locations
+    Route::apiResource('locations', 'LocationApiController');
+
+    // Sublocations
+    Route::apiResource('sublocations', 'SublocationApiController');
+
+    // Countries
+    Route::apiResource('countries', 'CountryApiController');
+
+    // Suppliers
+    Route::apiResource('suppliers', 'SuppliersApiController');
+
+    // Brands
+    Route::apiResource('brands', 'BrandApiController');
 });

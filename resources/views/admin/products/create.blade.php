@@ -21,49 +21,13 @@
             </div>
             <div class="form-group">
                 <label for="description">{{ trans('cruds.product.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>
+                <textarea class="form-control ckeditor {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{!! old('description') !!}</textarea>
                 @if($errors->has('description'))
                     <div class="invalid-feedback">
                         {{ $errors->first('description') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.product.fields.description_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="categories">{{ trans('cruds.product.fields.category') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('categories') ? 'is-invalid' : '' }}" name="categories[]" id="categories" multiple required>
-                    @foreach($categories as $id => $category)
-                        <option value="{{ $id }}" {{ in_array($id, old('categories', [])) ? 'selected' : '' }}>{{ $category }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('categories'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('categories') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.product.fields.category_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="locations">{{ trans('cruds.product.fields.location') }}</label>
-                <div style="padding-bottom: 4px">
-                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
-                </div>
-                <select class="form-control select2 {{ $errors->has('locations') ? 'is-invalid' : '' }}" name="locations[]" id="locations" multiple required>
-                    @foreach($locations as $id => $location)
-                        <option value="{{ $id }}" {{ in_array($id, old('locations', [])) ? 'selected' : '' }}>{{ $location }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('locations'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('locations') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.product.fields.location_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="tags">{{ trans('cruds.product.fields.tag') }}</label>
@@ -84,8 +48,46 @@
                 <span class="help-block">{{ trans('cruds.product.fields.tag_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="quantity">{{ trans('cruds.product.fields.quantity') }}</label>
-                <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number" name="quantity" id="quantity" value="{{ old('quantity', '1') }}" step="0.01">
+                <label class="required" for="category_id">{{ trans('cruds.product.fields.category') }}</label>
+                <select class="form-control select2 {{ $errors->has('category') ? 'is-invalid' : '' }}" name="category_id" id="category_id" required>
+                    @foreach($categories as $id => $category)
+                        <option value="{{ $id }}" {{ old('category_id') == $id ? 'selected' : '' }}>{{ $category }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('category'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('category') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.category_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="sub_category_id">{{ trans('cruds.product.fields.sub_category') }}</label>
+                <select class="form-control select2 {{ $errors->has('sub_category') ? 'is-invalid' : '' }}" name="sub_category_id" id="sub_category_id">
+                    @foreach($sub_categories as $id => $sub_category)
+                        <option value="{{ $id }}" {{ old('sub_category_id') == $id ? 'selected' : '' }}>{{ $sub_category }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('sub_category'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('sub_category') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.sub_category_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="serial_number">{{ trans('cruds.product.fields.serial_number') }}</label>
+                <input class="form-control {{ $errors->has('serial_number') ? 'is-invalid' : '' }}" type="text" name="serial_number" id="serial_number" value="{{ old('serial_number', '') }}">
+                @if($errors->has('serial_number'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('serial_number') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.serial_number_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="quantity">{{ trans('cruds.product.fields.quantity') }}</label>
+                <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number" name="quantity" id="quantity" value="{{ old('quantity', '1') }}" step="0.01" required min="1">
                 @if($errors->has('quantity'))
                     <div class="invalid-feedback">
                         {{ $errors->first('quantity') }}
@@ -94,50 +96,60 @@
                 <span class="help-block">{{ trans('cruds.product.fields.quantity_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="units_id">{{ trans('cruds.product.fields.units') }}</label>
-                <select class="form-control select2 {{ $errors->has('units') ? 'is-invalid' : '' }}" name="units_id" id="units_id">
-                    @foreach($units as $id => $units)
-                        <option value="{{ $id }}" {{ old('units_id') == $id ? 'selected' : '' }}>{{ $units }}</option>
+                <label class="required" for="location_id">{{ trans('cruds.product.fields.location') }}</label>
+                <select class="form-control select2 {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location_id" id="location_id" required>
+                    @foreach($locations as $id => $location)
+                        <option value="{{ $id }}" {{ old('location_id') == $id ? 'selected' : '' }}>{{ $location }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('units'))
+                @if($errors->has('location'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('units') }}
+                        {{ $errors->first('location') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.product.fields.units_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.product.fields.location_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="ipaddress">{{ trans('cruds.product.fields.ipaddress') }}</label>
-                <input class="form-control {{ $errors->has('ipaddress') ? 'is-invalid' : '' }}" type="text" name="ipaddress" id="ipaddress" value="{{ old('ipaddress', '0.0.0.0') }}">
-                @if($errors->has('ipaddress'))
+                <label for="sub_location_id">{{ trans('cruds.product.fields.sub_location') }}</label>
+                <select class="form-control select2 {{ $errors->has('sub_location') ? 'is-invalid' : '' }}" name="sub_location_id" id="sub_location_id">
+                    @foreach($sub_locations as $id => $sub_location)
+                        <option value="{{ $id }}" {{ old('sub_location_id') == $id ? 'selected' : '' }}>{{ $sub_location }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('sub_location'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('ipaddress') }}
+                        {{ $errors->first('sub_location') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.product.fields.ipaddress_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.product.fields.sub_location_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="serialnumber">{{ trans('cruds.product.fields.serialnumber') }}</label>
-                <input class="form-control {{ $errors->has('serialnumber') ? 'is-invalid' : '' }}" type="text" name="serialnumber" id="serialnumber" value="{{ old('serialnumber', '') }}">
-                @if($errors->has('serialnumber'))
+                <label for="brand_id">{{ trans('cruds.product.fields.brand') }}</label>
+                <select class="form-control select2 {{ $errors->has('brand') ? 'is-invalid' : '' }}" name="brand_id" id="brand_id">
+                    @foreach($brands as $id => $brand)
+                        <option value="{{ $id }}" {{ old('brand_id') == $id ? 'selected' : '' }}>{{ $brand }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('brand'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('serialnumber') }}
+                        {{ $errors->first('brand') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.product.fields.serialnumber_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.product.fields.brand_helper') }}</span>
             </div>
             <div class="form-group">
-                <div class="form-check {{ $errors->has('status') ? 'is-invalid' : '' }}">
-                    <input class="form-check-input" type="checkbox" name="status" id="status" value="1" required {{ old('status', 0) == 1 || old('status') === null ? 'checked' : '' }}>
-                    <label class="required form-check-label" for="status">{{ trans('cruds.product.fields.status') }}</label>
-                </div>
-                @if($errors->has('status'))
+                <label for="supplier_id">{{ trans('cruds.product.fields.supplier') }}</label>
+                <select class="form-control select2 {{ $errors->has('supplier') ? 'is-invalid' : '' }}" name="supplier_id" id="supplier_id">
+                    @foreach($suppliers as $id => $supplier)
+                        <option value="{{ $id }}" {{ old('supplier_id') == $id ? 'selected' : '' }}>{{ $supplier }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('supplier'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
+                        {{ $errors->first('supplier') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.product.fields.status_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.product.fields.supplier_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
@@ -149,5 +161,72 @@
 </div>
 
 
+
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+  function SimpleUploadAdapter(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = function(loader) {
+      return {
+        upload: function() {
+          return loader.file
+            .then(function (file) {
+              return new Promise(function(resolve, reject) {
+                // Init request
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/admin/products/ckmedia', true);
+                xhr.setRequestHeader('x-csrf-token', window._token);
+                xhr.setRequestHeader('Accept', 'application/json');
+                xhr.responseType = 'json';
+
+                // Init listeners
+                var genericErrorText = `Couldn't upload file: ${ file.name }.`;
+                xhr.addEventListener('error', function() { reject(genericErrorText) });
+                xhr.addEventListener('abort', function() { reject() });
+                xhr.addEventListener('load', function() {
+                  var response = xhr.response;
+
+                  if (!response || xhr.status !== 201) {
+                    return reject(response && response.message ? `${genericErrorText}\n${xhr.status} ${response.message}` : `${genericErrorText}\n ${xhr.status} ${xhr.statusText}`);
+                  }
+
+                  $('form').append('<input type="hidden" name="ck-media[]" value="' + response.id + '">');
+
+                  resolve({ default: response.url });
+                });
+
+                if (xhr.upload) {
+                  xhr.upload.addEventListener('progress', function(e) {
+                    if (e.lengthComputable) {
+                      loader.uploadTotal = e.total;
+                      loader.uploaded = e.loaded;
+                    }
+                  });
+                }
+
+                // Send request
+                var data = new FormData();
+                data.append('upload', file);
+                data.append('crud_id', '{{ $product->id ?? 0 }}');
+                xhr.send(data);
+              });
+            })
+        }
+      };
+    }
+  }
+
+  var allEditors = document.querySelectorAll('.ckeditor');
+  for (var i = 0; i < allEditors.length; ++i) {
+    ClassicEditor.create(
+      allEditors[i], {
+        extraPlugins: [SimpleUploadAdapter]
+      }
+    );
+  }
+});
+</script>
 
 @endsection

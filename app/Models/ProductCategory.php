@@ -22,9 +22,6 @@ class ProductCategory extends Model
 
     protected $fillable = [
         'name',
-        'description',
-        'subcategory_id',
-        'active',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -35,13 +32,8 @@ class ProductCategory extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function subcategoryProductCategories()
+    public function subCategorySubCategories()
     {
-        return $this->hasMany(ProductCategory::class, 'subcategory_id', 'id');
-    }
-
-    public function subcategory()
-    {
-        return $this->belongsTo(ProductCategory::class, 'subcategory_id');
+        return $this->belongsToMany(SubCategory::class);
     }
 }
