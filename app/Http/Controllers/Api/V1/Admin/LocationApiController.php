@@ -17,7 +17,7 @@ class LocationApiController extends Controller
     {
         abort_if(Gate::denies('location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new LocationResource(Location::with(['location_name'])->get());
+        return new LocationResource(Location::all());
     }
 
     public function store(StoreLocationRequest $request)
@@ -33,7 +33,7 @@ class LocationApiController extends Controller
     {
         abort_if(Gate::denies('location_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new LocationResource($location->load(['location_name']));
+        return new LocationResource($location);
     }
 
     public function update(UpdateLocationRequest $request, Location $location)

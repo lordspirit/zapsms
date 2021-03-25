@@ -20,7 +20,7 @@ class ProductApiController extends Controller
     {
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProductResource(Product::with(['tags', 'category', 'sub_category', 'location', 'sub_location', 'brand', 'supplier'])->get());
+        return new ProductResource(Product::with(['tags', 'category', 'sub_category', 'units', 'location', 'sub_location', 'brand', 'supplier'])->get());
     }
 
     public function store(StoreProductRequest $request)
@@ -37,7 +37,7 @@ class ProductApiController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProductResource($product->load(['tags', 'category', 'sub_category', 'location', 'sub_location', 'brand', 'supplier']));
+        return new ProductResource($product->load(['tags', 'category', 'sub_category', 'units', 'location', 'sub_location', 'brand', 'supplier']));
     }
 
     public function update(UpdateProductRequest $request, Product $product)

@@ -20,7 +20,7 @@ class SublocationController extends Controller
         abort_if(Gate::denies('sublocation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Sublocation::with(['location'])->select(sprintf('%s.*', (new Sublocation)->table));
+            $query = Sublocation::with(['locations'])->select(sprintf('%s.*', (new Sublocation)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -47,8 +47,14 @@ class SublocationController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : "";
             });
-            $table->addColumn('location_name', function ($row) {
-                return $row->location ? $row->location->name : '';
+            $table->editColumn('location', function ($row) {
+                $labels = [];
+
+                foreach ($row->locations as $location) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $location->name);
+                }
+
+                return implode(' ', $labels);
             });
 
             $table->rawColumns(['actions', 'placeholder', 'location']);
@@ -65,7 +71,7 @@ class SublocationController extends Controller
     {
         abort_if(Gate::denies('sublocation_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $locations = Location::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $locations = Location::all()->pluck('name', 'id');
 
         return view('admin.sublocations.create', compact('locations'));
     }
@@ -73,6 +79,7 @@ class SublocationController extends Controller
     public function store(StoreSublocationRequest $request)
     {
         $sublocation = Sublocation::create($request->all());
+        $sublocation->locations()->sync($request->input('locations', []));
 
         return redirect()->route('admin.sublocations.index');
     }
@@ -81,9 +88,9 @@ class SublocationController extends Controller
     {
         abort_if(Gate::denies('sublocation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $locations = Location::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $locations = Location::all()->pluck('name', 'id');
 
-        $sublocation->load('location');
+        $sublocation->load('locations');
 
         return view('admin.sublocations.edit', compact('locations', 'sublocation'));
     }
@@ -91,6 +98,7 @@ class SublocationController extends Controller
     public function update(UpdateSublocationRequest $request, Sublocation $sublocation)
     {
         $sublocation->update($request->all());
+        $sublocation->locations()->sync($request->input('locations', []));
 
         return redirect()->route('admin.sublocations.index');
     }
@@ -99,7 +107,7 @@ class SublocationController extends Controller
     {
         abort_if(Gate::denies('sublocation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $sublocation->load('location');
+        $sublocation->load('locations');
 
         return view('admin.sublocations.show', compact('sublocation'));
     }

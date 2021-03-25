@@ -356,63 +356,63 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 87,
-                'title' => 'country_create',
-            ],
-            [
-                'id'    => 88,
-                'title' => 'country_edit',
-            ],
-            [
-                'id'    => 89,
-                'title' => 'country_show',
-            ],
-            [
-                'id'    => 90,
-                'title' => 'country_delete',
-            ],
-            [
-                'id'    => 91,
-                'title' => 'country_access',
-            ],
-            [
-                'id'    => 92,
                 'title' => 'supplier_create',
             ],
             [
-                'id'    => 93,
+                'id'    => 88,
                 'title' => 'supplier_edit',
             ],
             [
-                'id'    => 94,
+                'id'    => 89,
                 'title' => 'supplier_show',
             ],
             [
-                'id'    => 95,
+                'id'    => 90,
                 'title' => 'supplier_delete',
             ],
             [
-                'id'    => 96,
+                'id'    => 91,
                 'title' => 'supplier_access',
             ],
             [
-                'id'    => 97,
+                'id'    => 92,
                 'title' => 'brand_create',
             ],
             [
-                'id'    => 98,
+                'id'    => 93,
                 'title' => 'brand_edit',
             ],
             [
-                'id'    => 99,
+                'id'    => 94,
                 'title' => 'brand_show',
             ],
             [
-                'id'    => 100,
+                'id'    => 95,
                 'title' => 'brand_delete',
             ],
             [
-                'id'    => 101,
+                'id'    => 96,
                 'title' => 'brand_access',
+            ],
+            [
+                'id'    => 97,
+                'title' => 'unit_create',
+            ],
+            [
+                'id'    => 98,
+                'title' => 'unit_edit',
+            ],
+            [
+                'id'    => 99,
+                'title' => 'unit_show',
+            ],
+            [
+                'id'    => 100,
+                'title' => 'unit_delete',
+            ],
+            [
+                'id'    => 101,
+                'title' => 'unit_access',
             ],
             [
                 'id'    => 102,

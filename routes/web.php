@@ -87,10 +87,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('sublocations/destroy', 'SublocationController@massDestroy')->name('sublocations.massDestroy');
     Route::resource('sublocations', 'SublocationController');
 
-    // Countries
-    Route::delete('countries/destroy', 'CountryController@massDestroy')->name('countries.massDestroy');
-    Route::resource('countries', 'CountryController');
-
     // Suppliers
     Route::delete('suppliers/destroy', 'SuppliersController@massDestroy')->name('suppliers.massDestroy');
     Route::resource('suppliers', 'SuppliersController');
@@ -98,6 +94,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Brands
     Route::delete('brands/destroy', 'BrandController@massDestroy')->name('brands.massDestroy');
     Route::resource('brands', 'BrandController');
+
+    // Units
+    Route::delete('units/destroy', 'UnitsController@massDestroy')->name('units.massDestroy');
+    Route::resource('units', 'UnitsController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password

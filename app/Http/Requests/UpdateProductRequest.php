@@ -20,6 +20,7 @@ class UpdateProductRequest extends FormRequest
             'name'          => [
                 'string',
                 'required',
+                'unique:products,name,' . request()->route('product')->id,
             ],
             'tags.*'        => [
                 'integer',

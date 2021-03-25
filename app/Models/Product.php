@@ -30,6 +30,7 @@ class Product extends Model implements HasMedia
         'sub_category_id',
         'serial_number',
         'quantity',
+        'units_id',
         'location_id',
         'sub_location_id',
         'brand_id',
@@ -63,6 +64,11 @@ class Product extends Model implements HasMedia
     public function sub_category()
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
+    }
+
+    public function units()
+    {
+        return $this->belongsTo(Unit::class, 'units_id');
     }
 
     public function location()

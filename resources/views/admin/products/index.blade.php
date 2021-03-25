@@ -43,6 +43,9 @@
                         {{ trans('cruds.product.fields.quantity') }}
                     </th>
                     <th>
+                        {{ trans('cruds.product.fields.units') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.product.fields.location') }}
                     </th>
                     <th>
@@ -96,6 +99,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($units as $key => $item)
+                                <option value="{{ $item->unit_name }}">{{ $item->unit_name }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -191,6 +202,7 @@
 { data: 'sub_category_name', name: 'sub_category.name' },
 { data: 'serial_number', name: 'serial_number' },
 { data: 'quantity', name: 'quantity' },
+{ data: 'units_unit_name', name: 'units.unit_name' },
 { data: 'location_name', name: 'location.name' },
 { data: 'sub_location_name', name: 'sub_location.name' },
 { data: 'brand_name', name: 'brand.name' },

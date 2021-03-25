@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 
-class Location extends Model
+class Unit extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, Auditable, HasFactory;
 
-    public $table = 'locations';
+    public $table = 'units';
 
     protected $dates = [
         'created_at',
@@ -20,7 +21,7 @@ class Location extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'unit_name',
         'created_at',
         'updated_at',
         'deleted_at',

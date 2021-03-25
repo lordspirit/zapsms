@@ -83,6 +83,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.product.fields.units') }}
+                        </th>
+                        <td>
+                            {{ $product->units->unit_name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.product.fields.location') }}
                         </th>
                         <td>

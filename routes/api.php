@@ -51,12 +51,12 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Sublocations
     Route::apiResource('sublocations', 'SublocationApiController');
 
-    // Countries
-    Route::apiResource('countries', 'CountryApiController');
-
     // Suppliers
     Route::apiResource('suppliers', 'SuppliersApiController');
 
     // Brands
     Route::apiResource('brands', 'BrandApiController');
+
+    // Units
+    Route::apiResource('units', 'UnitsApiController');
 });

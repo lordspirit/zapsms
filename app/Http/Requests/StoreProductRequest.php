@@ -20,6 +20,7 @@ class StoreProductRequest extends FormRequest
             'name'          => [
                 'string',
                 'required',
+                'unique:products',
             ],
             'tags.*'        => [
                 'integer',

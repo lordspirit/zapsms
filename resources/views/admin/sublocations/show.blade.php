@@ -36,7 +36,9 @@
                             {{ trans('cruds.sublocation.fields.location') }}
                         </th>
                         <td>
-                            {{ $sublocation->location->name ?? '' }}
+                            @foreach($sublocation->locations as $key => $location)
+                                <span class="label label-info">{{ $location->name }}</span>
+                            @endforeach
                         </td>
                     </tr>
                 </tbody>
