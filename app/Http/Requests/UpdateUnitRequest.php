@@ -2,25 +2,25 @@
 
 namespace App\Http\Requests;
 
-use App\Models\ProductTag;
+use App\Models\Unit;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class UpdateProductTagRequest extends FormRequest
+class UpdateUnitRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('product_tag_edit');
+        return Gate::allows('unit_edit');
     }
 
     public function rules()
     {
         return [
-            'name' => [
+            'unit_name' => [
                 'string',
                 'required',
-                'unique:product_tags,name,' . request()->route('product_tag')->id,
+                'unique:units,unit_name,' . request()->route('unit')->id,
             ],
         ];
     }

@@ -15,6 +15,7 @@ use App\Models\ProductTag;
 use App\Models\SubCategory;
 use App\Models\Sublocation;
 use App\Models\Supplier;
+use App\Models\Unit;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -30,7 +31,7 @@ class ProductController extends Controller
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Product::with(['tags', 'category', 'sub_category', 'location', 'sub_location', 'brand', 'supplier'])->select(sprintf('%s.*', (new Product)->table));
+            $query = Product::with(['tags', 'category', 'sub_category', 'units', 'location', 'sub_location', 'brand', 'supplier'])->select(sprintf('%s.*', (new Product)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -80,6 +81,10 @@ class ProductController extends Controller
             $table->editColumn('quantity', function ($row) {
                 return $row->quantity ? $row->quantity : "";
             });
+            $table->addColumn('units_unit_name', function ($row) {
+                return $row->units ? $row->units->unit_name : '';
+            });
+
             $table->addColumn('location_name', function ($row) {
                 return $row->location ? $row->location->name : '';
             });
@@ -96,7 +101,7 @@ class ProductController extends Controller
                 return $row->supplier ? $row->supplier->name : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'tag', 'category', 'sub_category', 'location', 'sub_location', 'brand', 'supplier']);
+            $table->rawColumns(['actions', 'placeholder', 'tag', 'category', 'sub_category', 'units', 'location', 'sub_location', 'brand', 'supplier']);
 
             return $table->make(true);
         }
@@ -104,12 +109,13 @@ class ProductController extends Controller
         $product_tags       = ProductTag::get();
         $product_categories = ProductCategory::get();
         $sub_categories     = SubCategory::get();
+        $units              = Unit::get();
         $locations          = Location::get();
         $sublocations       = Sublocation::get();
         $brands             = Brand::get();
         $suppliers          = Supplier::get();
 
-        return view('admin.products.index', compact('product_tags', 'product_categories', 'sub_categories', 'locations', 'sublocations', 'brands', 'suppliers'));
+        return view('admin.products.index', compact('product_tags', 'product_categories', 'sub_categories', 'units', 'locations', 'sublocations', 'brands', 'suppliers'));
     }
 
     public function create()
@@ -122,6 +128,8 @@ class ProductController extends Controller
 
         $sub_categories = SubCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $units = Unit::all()->pluck('unit_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $locations = Location::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $sub_locations = Sublocation::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -130,7 +138,7 @@ class ProductController extends Controller
 
         $suppliers = Supplier::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.products.create', compact('tags', 'categories', 'sub_categories', 'locations', 'sub_locations', 'brands', 'suppliers'));
+        return view('admin.products.create', compact('tags', 'categories', 'sub_categories', 'units', 'locations', 'sub_locations', 'brands', 'suppliers'));
     }
 
     public function store(StoreProductRequest $request)
@@ -155,6 +163,8 @@ class ProductController extends Controller
 
         $sub_categories = SubCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $units = Unit::all()->pluck('unit_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $locations = Location::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $sub_locations = Sublocation::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
@@ -163,9 +173,9 @@ class ProductController extends Controller
 
         $suppliers = Supplier::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $product->load('tags', 'category', 'sub_category', 'location', 'sub_location', 'brand', 'supplier');
+        $product->load('tags', 'category', 'sub_category', 'units', 'location', 'sub_location', 'brand', 'supplier');
 
-        return view('admin.products.edit', compact('tags', 'categories', 'sub_categories', 'locations', 'sub_locations', 'brands', 'suppliers', 'product'));
+        return view('admin.products.edit', compact('tags', 'categories', 'sub_categories', 'units', 'locations', 'sub_locations', 'brands', 'suppliers', 'product'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
@@ -180,7 +190,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('tags', 'category', 'sub_category', 'location', 'sub_location', 'brand', 'supplier');
+        $product->load('tags', 'category', 'sub_category', 'units', 'location', 'sub_location', 'brand', 'supplier');
 
         return view('admin.products.show', compact('product'));
     }

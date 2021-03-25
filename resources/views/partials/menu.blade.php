@@ -68,7 +68,7 @@
             </li>
         @endcan
         @can('product_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/products*") ? "c-show" : "" }} {{ request()->is("admin/product-categories*") ? "c-show" : "" }} {{ request()->is("admin/sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/product-tags*") ? "c-show" : "" }} {{ request()->is("admin/countries*") ? "c-show" : "" }} {{ request()->is("admin/locations*") ? "c-show" : "" }} {{ request()->is("admin/sublocations*") ? "c-show" : "" }} {{ request()->is("admin/suppliers*") ? "c-show" : "" }} {{ request()->is("admin/brands*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/products*") ? "c-show" : "" }} {{ request()->is("admin/product-categories*") ? "c-show" : "" }} {{ request()->is("admin/sub-categories*") ? "c-show" : "" }} {{ request()->is("admin/product-tags*") ? "c-show" : "" }} {{ request()->is("admin/locations*") ? "c-show" : "" }} {{ request()->is("admin/sublocations*") ? "c-show" : "" }} {{ request()->is("admin/suppliers*") ? "c-show" : "" }} {{ request()->is("admin/brands*") ? "c-show" : "" }} {{ request()->is("admin/units*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-shopping-cart c-sidebar-nav-icon">
 
@@ -116,16 +116,6 @@
                             </a>
                         </li>
                     @endcan
-                    @can('country_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.countries.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/countries") || request()->is("admin/countries/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-flag c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.country.title') }}
-                            </a>
-                        </li>
-                    @endcan
                     @can('location_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.locations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/locations") || request()->is("admin/locations/*") ? "c-active" : "" }}">
@@ -163,6 +153,16 @@
 
                                 </i>
                                 {{ trans('cruds.brand.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                    @can('unit_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.units.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/units") || request()->is("admin/units/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.unit.title') }}
                             </a>
                         </li>
                     @endcan

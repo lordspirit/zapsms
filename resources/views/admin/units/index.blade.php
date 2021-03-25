@@ -1,34 +1,31 @@
 @extends('layouts.admin')
 @section('content')
-@can('sublocation_create')
+@can('unit_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.sublocations.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.sublocation.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.units.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.unit.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.sublocation.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.unit.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Sublocation">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Unit">
             <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        {{ trans('cruds.sublocation.fields.id') }}
+                        {{ trans('cruds.unit.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.sublocation.fields.name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.sublocation.fields.location') }}
+                        {{ trans('cruds.unit.fields.unit_name') }}
                     </th>
                     <th>
                         &nbsp;
@@ -42,14 +39,6 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <select class="search">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($locations as $key => $item)
-                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
                     </td>
                     <td>
                     </td>
@@ -67,11 +56,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('sublocation_delete')
+@can('unit_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.sublocations.massDestroy') }}",
+    url: "{{ route('admin.units.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -103,19 +92,18 @@
     serverSide: true,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.sublocations.index') }}",
+    ajax: "{{ route('admin.units.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'name', name: 'name' },
-{ data: 'location', name: 'locations.name' },
+{ data: 'unit_name', name: 'unit_name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 25,
   };
-  let table = $('.datatable-Sublocation').DataTable(dtOverrideGlobals);
+  let table = $('.datatable-Unit').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

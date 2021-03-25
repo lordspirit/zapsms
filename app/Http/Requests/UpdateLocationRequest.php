@@ -17,13 +17,10 @@ class UpdateLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'             => [
+            'name' => [
                 'string',
                 'required',
-            ],
-            'location_name_id' => [
-                'required',
-                'integer',
+                'unique:locations,name,' . request()->route('location')->id,
             ],
         ];
     }

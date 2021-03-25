@@ -20,6 +20,7 @@ class StoreProductTagRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
+                'unique:product_tags',
             ],
         ];
     }

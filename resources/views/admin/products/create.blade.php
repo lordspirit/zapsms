@@ -96,6 +96,20 @@
                 <span class="help-block">{{ trans('cruds.product.fields.quantity_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="units_id">{{ trans('cruds.product.fields.units') }}</label>
+                <select class="form-control select2 {{ $errors->has('units') ? 'is-invalid' : '' }}" name="units_id" id="units_id">
+                    @foreach($units as $id => $units)
+                        <option value="{{ $id }}" {{ old('units_id') == $id ? 'selected' : '' }}>{{ $units }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('units'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('units') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.units_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="location_id">{{ trans('cruds.product.fields.location') }}</label>
                 <select class="form-control select2 {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location_id" id="location_id" required>
                     @foreach($locations as $id => $location)

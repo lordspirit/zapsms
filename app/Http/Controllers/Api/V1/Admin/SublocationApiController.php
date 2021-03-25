@@ -17,12 +17,13 @@ class SublocationApiController extends Controller
     {
         abort_if(Gate::denies('sublocation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SublocationResource(Sublocation::with(['location'])->get());
+        return new SublocationResource(Sublocation::with(['locations'])->get());
     }
 
     public function store(StoreSublocationRequest $request)
     {
         $sublocation = Sublocation::create($request->all());
+        $sublocation->locations()->sync($request->input('locations', []));
 
         return (new SublocationResource($sublocation))
             ->response()
@@ -33,12 +34,13 @@ class SublocationApiController extends Controller
     {
         abort_if(Gate::denies('sublocation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new SublocationResource($sublocation->load(['location']));
+        return new SublocationResource($sublocation->load(['locations']));
     }
 
     public function update(UpdateSublocationRequest $request, Sublocation $sublocation)
     {
         $sublocation->update($request->all());
+        $sublocation->locations()->sync($request->input('locations', []));
 
         return (new SublocationResource($sublocation))
             ->response()

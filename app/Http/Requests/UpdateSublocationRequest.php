@@ -21,9 +21,12 @@ class UpdateSublocationRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'location_id' => [
-                'required',
+            'locations.*' => [
                 'integer',
+            ],
+            'locations'   => [
+                'required',
+                'array',
             ],
         ];
     }

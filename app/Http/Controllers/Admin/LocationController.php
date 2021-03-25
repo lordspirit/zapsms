@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyLocationRequest;
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
-use App\Models\Country;
 use App\Models\Location;
 use Gate;
 use Illuminate\Http\Request;
@@ -18,20 +17,16 @@ class LocationController extends Controller
     {
         abort_if(Gate::denies('location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $locations = Location::with(['location_name'])->get();
+        $locations = Location::all();
 
-        $countries = Country::get();
-
-        return view('admin.locations.index', compact('locations', 'countries'));
+        return view('admin.locations.index', compact('locations'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('location_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $location_names = Country::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.locations.create', compact('location_names'));
+        return view('admin.locations.create');
     }
 
     public function store(StoreLocationRequest $request)
@@ -45,11 +40,7 @@ class LocationController extends Controller
     {
         abort_if(Gate::denies('location_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $location_names = Country::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $location->load('location_name');
-
-        return view('admin.locations.edit', compact('location_names', 'location'));
+        return view('admin.locations.edit', compact('location'));
     }
 
     public function update(UpdateLocationRequest $request, Location $location)
@@ -62,8 +53,6 @@ class LocationController extends Controller
     public function show(Location $location)
     {
         abort_if(Gate::denies('location_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $location->load('location_name');
 
         return view('admin.locations.show', compact('location'));
     }

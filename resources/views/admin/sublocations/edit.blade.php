@@ -21,15 +21,19 @@
                 <span class="help-block">{{ trans('cruds.sublocation.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="location_id">{{ trans('cruds.sublocation.fields.location') }}</label>
-                <select class="form-control select2 {{ $errors->has('location') ? 'is-invalid' : '' }}" name="location_id" id="location_id" required>
+                <label class="required" for="locations">{{ trans('cruds.sublocation.fields.location') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('locations') ? 'is-invalid' : '' }}" name="locations[]" id="locations" multiple required>
                     @foreach($locations as $id => $location)
-                        <option value="{{ $id }}" {{ (old('location_id') ? old('location_id') : $sublocation->location->id ?? '') == $id ? 'selected' : '' }}>{{ $location }}</option>
+                        <option value="{{ $id }}" {{ (in_array($id, old('locations', [])) || $sublocation->locations->contains($id)) ? 'selected' : '' }}>{{ $location }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('location'))
+                @if($errors->has('locations'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('location') }}
+                        {{ $errors->first('locations') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.sublocation.fields.location_helper') }}</span>

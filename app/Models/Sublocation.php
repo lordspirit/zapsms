@@ -22,7 +22,6 @@ class Sublocation extends Model
 
     protected $fillable = [
         'name',
-        'location_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -33,8 +32,8 @@ class Sublocation extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function location()
+    public function locations()
     {
-        return $this->belongsTo(Location::class, 'location_id');
+        return $this->belongsToMany(Location::class);
     }
 }

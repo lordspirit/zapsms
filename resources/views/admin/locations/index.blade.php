@@ -29,9 +29,6 @@
                             {{ trans('cruds.location.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.location.fields.location_name') }}
-                        </th>
-                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -43,14 +40,6 @@
                         </td>
                         <td>
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                        </td>
-                        <td>
-                            <select class="search">
-                                <option value>{{ trans('global.all') }}</option>
-                                @foreach($countries as $key => $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
                         </td>
                         <td>
                         </td>
@@ -67,9 +56,6 @@
                             </td>
                             <td>
                                 {{ $location->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $location->location_name->name ?? '' }}
                             </td>
                             <td>
                                 @can('location_show')

@@ -21,6 +21,8 @@ class AddRelationshipFieldsToProductsTable extends Migration
             $table->foreign('brand_id', 'brand_fk_3509383')->references('id')->on('brands');
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->foreign('supplier_id', 'supplier_fk_3509384')->references('id')->on('suppliers');
+            $table->unsignedBigInteger('units_id')->nullable();
+            $table->foreign('units_id', 'units_fk_3525867')->references('id')->on('units');
         });
     }
 }
